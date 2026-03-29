@@ -211,6 +211,7 @@ export function Gantt(props: GanttProps): JSX.Element {
             resourceIndexMap = resourceStore.resourceIndexMap();
         }
 
+
         const {
             tasks: processedTasks,
             relationships: taskRelationships,

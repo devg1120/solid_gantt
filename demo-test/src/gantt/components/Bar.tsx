@@ -171,6 +171,7 @@ export function Bar(props: BarProps): JSX.Element {
 
     const { dragState, isDragging, startDrag } = useDrag({
         onDragStart: (data, state) => {
+	    console.log("drag sttart");
             // Reset drag flag at start
             didDragFlag = false;
             // Store original values
@@ -221,6 +222,7 @@ export function Bar(props: BarProps): JSX.Element {
                 return;
             }
 
+	    console.log("drag move -----: ", state);
             // Mark that a drag occurred (used to distinguish click from drag)
             didDragFlag = true;
 
@@ -259,6 +261,8 @@ export function Bar(props: BarProps): JSX.Element {
                         dependentOriginals,
                         deltaX,
                     );
+                    console.log("--- props.taskStore.batchMovePositions");
+
                 } else {
                     // Fallback: apply constraints and update single task
                     if (props.onConstrainPosition) {
@@ -271,8 +275,10 @@ export function Bar(props: BarProps): JSX.Element {
                         newX = constrained.x ?? newX;
                     }
                     props.taskStore.updateBarPosition(t().id, { x: newX });
+                    console.log("--- props.taskStore.updateBarPosition");
                 }
             } else if (state === 'dragging_left') {
+	        console.log("dragging_left");
                 // Left handle - resize from start
                 const originalX = data['originalX'] as number;
                 const originalWidth = data['originalWidth'] as number;
@@ -363,10 +369,12 @@ export function Bar(props: BarProps): JSX.Element {
                           )
                         : 0;
 
+                // console.log(" Update task ---");
                 // Update task progress
                 if (props.taskStore) {
                     const currentTask = props.taskStore.getTask(t().id);
                     if (currentTask) {
+                        //console.log(" Update task progress");
                         props.taskStore.updateTask(t().id, {
                             ...currentTask,
                             progress: newProgress,

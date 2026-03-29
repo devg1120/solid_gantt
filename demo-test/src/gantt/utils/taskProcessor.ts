@@ -53,12 +53,15 @@ function parseDependencies(dependencies: Dependency[] | undefined): NormalizedDe
     if (!dependencies) return [];
 
     // Type check: must be array
+    
     if (!Array.isArray(dependencies)) {
+    /* GUSA
         console.warn(
             'parseDependencies: dependencies must be an array, got:',
             typeof dependencies,
             dependencies
         );
+	*/
         return [];
     }
 
